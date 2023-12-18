@@ -27,7 +27,7 @@ function CustomerDetail({
   return (
     <PageContainer>
       <Box>
-        <Breadcrumb title={"Detalhes do Cliente: " + selectedClient.name} />
+        <Breadcrumb title={selectedClient.name} />
         <Grid
           sx={{
             backgroundColor: "primary.light",

@@ -149,13 +149,22 @@ const YearlyBreakup = () => {
           </Grid>
           {/* column */}
           <Grid item xs={5} sm={5}>
-            <Chart
+            <Typography sx={{ pb: 3 }} fontSize={20} fontWeight={500} textAlign={'center'}>
+              Score
+            </Typography>
+            <Typography fontSize={56} fontWeight={700} textAlign={'center'}>
+              9
+            </Typography>
+            <Typography sx={{ pt: 3 }} textAlign={'center'}>
+              25/12/2022
+            </Typography>
+            {/* <Chart
                 options={optionscolumnchart}
                 series={seriescolumnchart}
                 type="donut"
                 height={150}
                 width={"100%"}
-            />
+            /> */}
           </Grid>
         </Grid>
       </DashboardCard>
