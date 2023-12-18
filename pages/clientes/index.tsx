@@ -1,4 +1,4 @@
-import { useState, MouseEvent, ChangeEvent } from "react";
+import React, { useState, MouseEvent, ChangeEvent } from "react";
 import {
   Box,
   Table,
@@ -14,17 +14,23 @@ import {
   TextField,
   InputAdornment,
   Chip,
-} from '@mui/material';
-import { visuallyHidden } from '@mui/utils';
-import { IconSearch } from '@tabler/icons-react';
+  Breadcrumbs,
+  Button,
+  Grid,
+} from "@mui/material";
+import { visuallyHidden } from "@mui/utils";
+import { IconSearch } from "@tabler/icons-react";
 import PageContainer from "../../src/components/container/PageContainer";
-import { clientTableData, IClientTable } from "../../src/components/tables/tableData";
+import {
+  clientTableData,
+  IClientTable,
+} from "../../src/components/tables/tableData";
 import BlankCard from "../../src/components/shared/BlankCard";
 import Breadcrumb from "../../src/layouts/full/shared/breadcrumb/Breadcrumb";
 import AddCustomer from "../../src/components/customers/AddCustomer";
 import { useRouter } from "next/router";
 
-type Order = 'asc' | 'desc';
+type Order = "asc" | "desc";
 
 interface EnhancedTableToolbarProps {
   handleSearch: ChangeEvent<HTMLInputElement> | any;
@@ -35,7 +41,7 @@ interface HeadCell {
   disablePadding: boolean;
   id: any;
   label: string;
-  align?: 'center' | 'left' | 'right';
+  align?: "center" | "left" | "right";
 }
 
 interface EnhancedTableProps {
@@ -60,11 +66,14 @@ function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
 
 function getComparator<Key extends keyof any>(
   order: Order,
-  orderBy: Key,
-): (a: { [key in Key]: number | string }, b: { [key in Key]: number | string }) => number {
-  return order === 'desc'
-  ? (a, b) => descendingComparator(a, b, orderBy)
-  : (a, b) => -descendingComparator(a, b, orderBy);
+  orderBy: Key
+): (
+  a: { [key in Key]: number | string },
+  b: { [key in Key]: number | string }
+) => number {
+  return order === "desc"
+    ? (a, b) => descendingComparator(a, b, orderBy)
+    : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
 function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
@@ -80,73 +89,83 @@ function stableSort<T>(array: T[], comparator: (a: T, b: T) => number) {
 
   return stabilizedThis.map((el) => el[0]);
 }
-  
+
 const headCells: HeadCell[] = [
   {
-    id: 'name',
+    id: "name",
     disablePadding: false,
-    label: 'Cliente',
+    label: "Cliente",
   },
   {
-    id: 'shots_quantity',
+    id: "shots_quantity",
     disablePadding: false,
-    label: 'Disparos',
+    label: "Disparos",
   },
   {
-    id: 'answers_quantity',
+    id: "answers_quantity",
     disablePadding: false,
-    label: 'Respostas',
+    label: "Respostas",
   },
   {
-    id: 'score',
+    id: "score",
     disablePadding: false,
-    label: 'Score',
+    label: "Score",
   },
   {
-    id: 'classification',
+    id: "classification",
     disablePadding: false,
-    label: 'Classificação',
-    align: 'center'
-  }
+    label: "Classificação",
+    align: "center",
+  },
 ];
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
-    const createSortHandler = (property: keyof []) => (event: MouseEvent<unknown>) => {
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
+  const createSortHandler =
+    (property: keyof []) => (event: MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
-  
-    return (
-      <TableHead>
-        <TableRow>
-          {headCells.map((headCell) => {
-            return (
-              <TableCell
-                key={headCell.id}
-                align={headCell.align ?? 'left'}
-                padding={headCell.disablePadding ? 'none' : 'normal'}
-                sortDirection={orderBy === headCell.id ? order : false}
+
+  return (
+    <TableHead>
+      <TableRow>
+        {headCells.map((headCell) => {
+          return (
+            <TableCell
+              key={headCell.id}
+              align={headCell.align ?? "left"}
+              padding={headCell.disablePadding ? "none" : "normal"}
+              sortDirection={orderBy === headCell.id ? order : false}
+            >
+              <TableSortLabel
+                active={orderBy === headCell.id}
+                direction={orderBy === headCell.id ? order : "asc"}
+                onClick={createSortHandler(headCell.id)}
               >
-                <TableSortLabel
-                  active={orderBy === headCell.id}
-                  direction={orderBy === headCell.id ? order : 'asc'}
-                  onClick={createSortHandler(headCell.id)}
-                >
-                  <Typography variant="subtitle1" fontWeight="500">
-                    {headCell.label}
-                  </Typography>
-                  {orderBy === headCell.id ? (
-                    <Box component="span" sx={visuallyHidden}>
-                      {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
-                    </Box>
-                  ) : null}
-                </TableSortLabel>
-              </TableCell>
-            )
-          })}
-        </TableRow>
-      </TableHead>
-    );
+                <Typography variant="subtitle1" fontWeight="500">
+                  {headCell.label}
+                </Typography>
+                {orderBy === headCell.id ? (
+                  <Box component="span" sx={visuallyHidden}>
+                    {order === "desc"
+                      ? "sorted descending"
+                      : "sorted ascending"}
+                  </Box>
+                ) : null}
+              </TableSortLabel>
+            </TableCell>
+          );
+        })}
+      </TableRow>
+    </TableHead>
+  );
 }
 
 function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
@@ -157,11 +176,11 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
       sx={{
         pl: { sm: 2 },
         pr: { xs: 1, sm: 1 },
-        justifyContent: { xs: 'flex-start', sm: 'space-between' },
-        flexDirection: { xs: 'column', sm: 'row' }
+        justifyContent: { xs: "flex-start", sm: "space-between" },
+        flexDirection: { xs: "column", sm: "row" },
       }}
     >
-      <Box sx={{marginBottom: 1}}>
+      <Box sx={{ marginBottom: 1 }}>
         <TextField
           InputProps={{
             startAdornment: (
@@ -184,189 +203,241 @@ function EnhancedTableToolbar(props: EnhancedTableToolbarProps) {
 }
 
 const ClientsList = () => {
-    const [order, setOrder] = useState<Order>('asc');
-    const [orderBy, setOrderBy] = useState<any>('Cliente');
-    const [selected, setSelected] = useState<readonly string[]>([]);
-    const [page, setPage] = useState(0);
-    const [dense, setDense] = useState(false);
-    const [rowsPerPage, setRowsPerPage] = useState(5);
-    const router = useRouter();
-    
-    // const rows: EnTableType[] = EnhancedTableData;
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<any>("Cliente");
+  const [selected, setSelected] = useState<readonly string[]>([]);
+  const [page, setPage] = useState(0);
+  const [dense, setDense] = useState(false);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const router = useRouter();
 
-    // const getProducts: EnTableType[] = useSelector((state) => state.ecommerceReducer.products);
-    const [rows, setRows] = useState<IClientTable[]>(clientTableData);
-    const [search, setSearch] = useState('');
-  
-    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const filteredRows: IClientTable[] = clientTableData.filter((row) => {
-          return row.name.toLowerCase().includes(event.target.value);
-        });
-        setSearch(event.target.value);
-        setRows(filteredRows);
-    };
+  // const rows: EnTableType[] = EnhancedTableData;
 
-    const handleRequestSort = (event: MouseEvent<unknown>, property: keyof []) => {
-      const isAsc = orderBy === property && order === 'asc';
-      setOrder(isAsc ? 'desc' : 'asc');
-      setOrderBy(property);
-    };
-  
-    const handleClick = (event: MouseEvent<unknown>, slug: string) => {
-    //   const selectedIndex = selected.indexOf(name);
-    //   let newSelected: readonly string[] = [];
+  // const getProducts: EnTableType[] = useSelector((state) => state.ecommerceReducer.products);
+  const [rows, setRows] = useState<IClientTable[]>(clientTableData);
 
-    //   if (selectedIndex === -1) {
-    //     newSelected = newSelected.concat(selected, name);
-    //   } else if (selectedIndex === 0) {
-    //     newSelected = newSelected.concat(selected.slice(1));
-    //   } else if (selectedIndex === selected.length - 1) {
-    //     newSelected = newSelected.concat(selected.slice(0, -1));
-    //   } else if (selectedIndex > 0) {
-    //     newSelected = newSelected.concat(
-    //       selected.slice(0, selectedIndex),
-    //       selected.slice(selectedIndex + 1),
-    //     );
-    //   }
+  const [search, setSearch] = useState("");
 
-    //   setSelected(newSelected);
-        router.push(`/customers/${slug}`)
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const filteredRows: IClientTable[] = clientTableData.filter((row) => {
+      return row.name.toLowerCase().includes(event.target.value);
+    });
+    setSearch(event.target.value);
+    setRows(filteredRows);
+  };
 
-    console.log('Click');
-    };
-  
-    const handleChangePage = (event: unknown, newPage: number) => {
-      setPage(newPage);
-    };
-  
-    const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
-      setRowsPerPage(parseInt(event.target.value, 10));
-      setPage(0);
-    };
-  
-    const handleChangeDense = (event: ChangeEvent<HTMLInputElement>) => {
-      setDense(event.target.checked);
-    };
-  
-    const isSelected = (name: string) => selected.indexOf(name) !== -1;
-  
-    // Avoid a layout jump when reaching the last page with empty rows.
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const handleRequestSort = (
+    event: MouseEvent<unknown>,
+    property: keyof []
+  ) => {
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
+    setOrderBy(property);
+  };
 
-    return (
-      <PageContainer>
-        {/* breadcrumb */}
-        <Breadcrumb title="Clientes" />
-        <BlankCard>
-          <Box mb={2} sx={{ mb: 2 }}>
-            <EnhancedTableToolbar 
-              search={search}
-              handleSearch={(event: any) => handleSearch(event)}
-            />
-            <TableContainer>
-              <Table
-                sx={{ minWidth: 750 }}
-                aria-labelledby="tableTitle"
-                size={dense ? 'small' : 'medium'}
-              >
-                <EnhancedTableHead
-                  numSelected={selected.length}
-                  order={order}
-                  orderBy={orderBy}
-                  onSelectAllClick={() => {}}
-                  onRequestSort={handleRequestSort}
-                  rowCount={rows.length}
-                />
-                <TableBody>
-                  {stableSort(rows, getComparator(order, orderBy))
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row: IClientTable, index) => {
-                      const isItemSelected = isSelected(row.name);
+  const handleClick = (event: MouseEvent<unknown>, slug: string) => {
+    router.push(`/clientes/${slug}`);
 
-                      return (
-                        <TableRow
-                          hover
-                          onClick={(event) => handleClick(event, row.slug)}
-                          role="checkbox"
-                          aria-checked={isItemSelected}
-                          tabIndex={-1}
-                          key={row.id}
-                          selected={isItemSelected}
-                          sx={{cursor: 'pointer'}}
-                        >
-                          <TableCell>
-                            <Typography variant="h6" fontWeight="600">
-                              {row.name}
-                            </Typography>
-                          </TableCell>
-                          <TableCell>
-                            <Typography color="textSecondary" variant="subtitle2" fontWeight="400">
-                              {row.shots_quantity}
-                            </Typography>
-                          </TableCell>
-                          <TableCell>
-                            <Typography color="textSecondary" variant="subtitle2" fontWeight="400">
-                              {row.answers_quantity}
-                            </Typography>
-                          </TableCell>
-                          <TableCell>
-                            <Typography color="textSecondary" variant="body1">
-                              {row.score}
-                            </Typography>
-                          </TableCell>
-                          <TableCell
-                          align="center"
+    console.log("Click");
+  };
+
+  const handleChangePage = (event: unknown, newPage: number) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleChangeDense = (event: ChangeEvent<HTMLInputElement>) => {
+    setDense(event.target.checked);
+  };
+
+  const isSelected = (name: string) => selected.indexOf(name) !== -1;
+
+  // Avoid a layout jump when reaching the last page with empty rows.
+  const emptyRows =
+    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const [activeButton, setActiveButton] = React.useState<number>(1);
+
+  const handleButtonClick = (buttonId: number) => {
+    setActiveButton(buttonId);
+  };
+  const buttons = [
+    {
+      id: 1,
+      title: "Ativo",
+      status: "active",
+    },
+    {
+      id: 2,
+      title: "Inativo",
+      status: "inactive",
+    },
+    {
+      id: 3,
+      title: "Lixeira",
+      status: "thrash",
+    },
+  ];
+  const filteredData = rows.filter((item) => {
+    if (activeButton === 1) {
+      return item.status === "active";
+    } else if (activeButton === 2) {
+      return item.status === "inactive";
+    } else if (activeButton === 3) {
+      return item.status === "thrash";
+    }
+    return true; // If statusFilter is not 1, 2, or 3, show all items
+  });
+  return (
+    <PageContainer>
+      {/* breadcrumb */}
+      <Breadcrumb title="Clientes" />
+      <Grid
+        sx={{
+          backgroundColor: "primary.light",
+          borderRadius: "0 0 12px 12px",
+          p: "0 25px 20px",
+          marginBottom: "30px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        <Breadcrumbs separator="-" aria-label="breadcrumb">
+          {buttons &&
+            buttons.map((button) => (
+              <div key={button.id}>
+                <Button
+                  variant={
+                    activeButton === button.id ? "contained" : "outlined"
+                  }
+                  onClick={() => handleButtonClick(button.id)}
+                >
+                  {button.title}
+                </Button>
+              </div>
+            ))}
+        </Breadcrumbs>
+      </Grid>
+
+      <BlankCard>
+        <Box mb={2} sx={{ mb: 2 }}>
+          <EnhancedTableToolbar
+            search={search}
+            handleSearch={(event: any) => handleSearch(event)}
+          />
+          <TableContainer>
+            <Table
+              sx={{ minWidth: 750 }}
+              aria-labelledby="tableTitle"
+              size={dense ? "small" : "medium"}
+            >
+              <EnhancedTableHead
+                numSelected={selected.length}
+                order={order}
+                orderBy={orderBy}
+                onSelectAllClick={() => {}}
+                onRequestSort={handleRequestSort}
+                rowCount={rows.length}
+              />
+              <TableBody>
+                {stableSort(filteredData, getComparator(order, orderBy))
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row: IClientTable, index) => {
+                    const isItemSelected = isSelected(row.name);
+
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClick(event, row.slug)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={row.id}
+                        selected={isItemSelected}
+                        sx={{ cursor: "pointer" }}
+                      >
+                        <TableCell>
+                          <Typography variant="h6" fontWeight="600">
+                            {row.name}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography
+                            color="textSecondary"
+                            variant="subtitle2"
+                            fontWeight="400"
                           >
-                            <Chip
-                              color={
-                                row.classification === 'Promotor'
-                                  ? 'success'
-                                  : row.classification === 'Neutro'
-                                  ? 'warning'
-                                  : row.classification === 'Detrator'
-                                  ? 'error'
-                                  : 'secondary'
-                              }
-                              sx={{
-                                borderRadius: '30px',
-                              }}
-                              label={row.classification}
-                            />
-                          </TableCell>
-                        </TableRow>
-                      );
-                    })}
-                  {emptyRows > 0 && (
-                    <TableRow
-                      style={{
-                        height: (dense ? 33 : 53) * emptyRows,
-                      }}
-                    >
-                      <TableCell colSpan={6} />
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </Box>
-          {/* <Box p={2}>
+                            {row.shots_quantity}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography
+                            color="textSecondary"
+                            variant="subtitle2"
+                            fontWeight="400"
+                          >
+                            {row.answers_quantity}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>
+                          <Typography color="textSecondary" variant="body1">
+                            {row.score}
+                          </Typography>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Chip
+                            color={
+                              row.classification === "Promotor"
+                                ? "success"
+                                : row.classification === "Neutro"
+                                ? "warning"
+                                : row.classification === "Detrator"
+                                ? "error"
+                                : "secondary"
+                            }
+                            sx={{
+                              borderRadius: "30px",
+                            }}
+                            label={row.classification}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                {emptyRows > 0 && (
+                  <TableRow
+                    style={{
+                      height: (dense ? 33 : 53) * emptyRows,
+                    }}
+                  >
+                    <TableCell colSpan={6} />
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        </Box>
+        {/* <Box p={2}>
             <FormControlLabel
               control={<CustomSwitch checked={dense} onChange={handleChangeDense} />}
               label="Dense padding"
             />
           </Box> */}
-        </BlankCard>
-      </PageContainer>
-    );
-  };
-  
+      </BlankCard>
+    </PageContainer>
+  );
+};
+
 export default ClientsList;

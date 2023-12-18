@@ -197,7 +197,7 @@ const QuestionsLayout = () => {
             <Grid item display="flex" gap={2} key={question.id}>
               <CustomTextField
                 id="bl-company"
-                placeholder="Sugestão: “De 0 a 10, quanto você recomendaria a nossa empresa para um amigo ou familiar?”"
+                placeholder="Sugestão: “Qualidade do atendimento”, “Cumprimento de prazos”, “Qualidade do produto”, “Relatórios”, “Suporte ao cliente”"
                 fullWidth
               />
               <Button

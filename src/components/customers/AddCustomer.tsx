@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState } from "react";
 import { addCustomer } from "../../store/customers/CustomersSlice";
-import { mask } from 'remask';
+import { mask } from "remask";
 
 import {
   Button,
@@ -12,7 +12,8 @@ import {
   DialogActions,
   DialogContentText,
   Typography,
-  Grid
+  Grid,
+  Checkbox,
 } from "@mui/material";
 import { useSelector, useDispatch } from "../../store/Store";
 import { IconTrashFilled } from "@tabler/icons-react";
@@ -93,12 +94,7 @@ const AddCustomer = ({ colors }: Props) => {
         maxWidth={"md"}
       >
         <DialogContent>
-          <Grid 
-          container
-          direction="row"
-          alignItems="center"
-          spacing={2}
-          >
+          <Grid container direction="row" alignItems="center" spacing={2}>
             <Grid item>
               <Typography variant="h5" fontWeight={700}>
                 Cliente
@@ -106,23 +102,15 @@ const AddCustomer = ({ colors }: Props) => {
             </Grid>
             <Grid item>
               <Button
-              variant="outlined"
-              size="small"
-              onClick={() => setShowImport(!showImport)}
+                variant="outlined"
+                size="small"
+                onClick={() => setShowImport(!showImport)}
               >
-                {
-                  showImport
-                  ?
-                  'Adicionar cliente'
-                  :
-                  'Importar lista'
-                }
+                {showImport ? "Adicionar cliente" : "Importar lista"}
               </Button>
             </Grid>
           </Grid>
-          {
-            !showImport
-            ?
+          {!showImport ? (
             <Grid container spacing={3} mb={3} mt={1}>
               <Grid item sm={12} xs={12}>
                 <TextField
@@ -138,7 +126,7 @@ const AddCustomer = ({ colors }: Props) => {
                 />
               </Grid>
               {responsibles.map((responsible, key) => (
-                <Grid item container spacing={2}>
+                <Grid item container spacing={2} key={key}>
                   <Grid item lg={4} md={12} sm={12} xs={12}>
                     <TextField
                       value={responsibles[key].name}
@@ -197,7 +185,7 @@ const AddCustomer = ({ colors }: Props) => {
                   </Grid>
                   <Grid item lg={3} md={12} sm={12} xs={12}>
                     <TextField
-                      value={mask(responsibles[key].phone, '(99) 99999-9999')}
+                      value={mask(responsibles[key].phone, "(99) 99999-9999")}
                       onChange={(e) => {
                         const newResponsible = responsibles.map(
                           (responsible, index) => {
@@ -249,6 +237,10 @@ const AddCustomer = ({ colors }: Props) => {
                   Novo responsável
                 </Button>
               </Grid>
+              <Grid item>
+                <Checkbox />
+                Cliente de teste
+              </Grid>
               <Grid item lg={12} md={12} sm={12} xs={12}>
                 <TextField
                   value={observation}
@@ -265,7 +257,7 @@ const AddCustomer = ({ colors }: Props) => {
                 />
               </Grid>
             </Grid>
-            :
+          ) : (
             <Grid container spacing={3} mb={3} mt={1}>
               <Grid item sm={12}>
                 <TextField
@@ -292,10 +284,20 @@ const AddCustomer = ({ colors }: Props) => {
                   variant="outlined"
                   fullWidth
                 />
-                <Typography>Utilize <a className="font-weight-bold" href="https://administrativo.cxsolution.com.br/arquivos/lista-clientes.xlsx" target="_blank">este modelo</a> de arquivo para importação dos usuários</Typography>
+                <Typography>
+                  Utilize{" "}
+                  <a
+                    className="font-weight-bold"
+                    href="https://administrativo.cxsolution.com.br/arquivos/lista-clientes.xlsx"
+                    target="_blank"
+                  >
+                    este modelo
+                  </a>{" "}
+                  de arquivo para importação dos usuários
+                </Typography>
               </Grid>
             </Grid>
-          }
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancelar</Button>

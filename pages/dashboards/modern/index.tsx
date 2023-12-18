@@ -29,13 +29,13 @@ const Modern = () => {
             <TopCards />
           </Grid>
           <Grid item lg={4}>
-            <Detratores />
+            <Promotores />
           </Grid>
           <Grid item lg={4}>
             <Neutros />
           </Grid>
           <Grid item lg={4}>
-            <Promotores />
+            <Detratores />
           </Grid>
           {/* <Grid item xs={12} lg={8}>
             <RevenueUpdates />

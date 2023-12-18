@@ -34,10 +34,9 @@ export interface IClientTable {
     answers_quantity: number;
     score: number;
     classification: string;
-
     [x: string]: string | number;
-
     slug: string;
+    status: string;
 }
 
 export interface CustomerResponseType {
@@ -392,7 +391,8 @@ const clientTableData: IClientTable[] = [
         answers_quantity: 1,
         score: 10,
         classification: "Promotor",
-        slug: "3d-cure"
+        slug: "3d-cure",
+        status: "active",
     },
     {
         id: 2,
@@ -403,7 +403,8 @@ const clientTableData: IClientTable[] = [
         answers_quantity: 1,
         score: 6,
         classification: "Detrator",
-        slug: "8-horas"
+        slug: "8-horas",
+        status: "active",
     },
     {
         id: 3,
@@ -414,7 +415,8 @@ const clientTableData: IClientTable[] = [
         answers_quantity: 2,
         score: 8,
         classification: "Neutro",
-        slug: "ads-latin"
+        slug: "ads-latin",
+        status: "active",
     },
     {
         id: 4,
@@ -425,7 +427,8 @@ const clientTableData: IClientTable[] = [
         answers_quantity: 7,
         score: 8,
         classification: "Neutro",
-        slug: "conta-dr"
+        slug: "conta-dr",
+        status: "active",
     },
     {
         id: 5,
@@ -436,9 +439,95 @@ const clientTableData: IClientTable[] = [
         answers_quantity: 7,
         score: 8,
         classification: "Detrator",
-        slug: "rede-constroi"
+        slug: "rede-constroi",
+        status: "active",
+    },
+    {
+        id: 6,
+        logo: "/images/profile/user-5.jpg",
+        name: "Take Blip",
+        email: "blip@gmail.com",
+        shots_quantity: 1,
+        answers_quantity: 1,
+        score: 10,
+        classification: "Promotor",
+        slug: "blip",
+        status: "thrash"
+    },
+    {
+        id: 7,
+        logo: "/images/profile/user-5.jpg",
+        name: "Leo Velozo",
+        email: "leovelozo@gmail.com",
+        shots_quantity: 4,
+        answers_quantity: 1,
+        score: 6,
+        classification: "Detrator",
+        slug: "leo-velozo",
+        status: "thrash"
+    },
+    {
+        id: 8,
+        logo: "/images/profile/user-5.jpg",
+        name: "Canopus",
+        email: "Canopus@gmail.com",
+        shots_quantity: 1,
+        answers_quantity: 1,
+        score: 10,
+        classification: "Promotor",
+        slug: "canopus",
+        status: "inactive"
+    },
+    {
+        id: 9,
+        logo: "/images/profile/user-5.jpg",
+        name: "Canal Psicologia",
+        email: "canalp@gmail.com",
+        shots_quantity: 4,
+        answers_quantity: 1,
+        score: 6,
+        classification: "Detrator",
+        slug: "canal-psicologia",
+        status: "inactive"
+    },
+    {
+        id: 10,
+        logo: "/images/profile/user-5.jpg",
+        name: "Casa da Piscina",
+        email: "casadapiscina@gmail.com",
+        shots_quantity: 15,
+        answers_quantity: 2,
+        score: 8,
+        classification: "Neutro",
+        slug: "casa-da-piscina",
+        status: "inactive"
+    },
+    {
+        id: 11,
+        logo: "/images/profile/user-5.jpg",
+        name: "DeltaPrice",
+        email: "delta@gmail.com",
+        shots_quantity: 13,
+        answers_quantity: 7,
+        score: 8,
+        classification: "Neutro",
+        slug: "delta-price",
+        status: "inactive"
+    },
+    {
+        id: 12,
+        logo: "/images/profile/user-5.jpg",
+        name: "Affemg",
+        email: "affemg@gmail.com",
+        shots_quantity: 13,
+        answers_quantity: 7,
+        score: 8,
+        classification: "Detrator",
+        slug: "affemg",
+        status: "inactive"
     },
 ];
+
 
 const customerResponseData: CustomerResponseType[] = [
     {
