@@ -20,10 +20,6 @@ import {
 
 const Menuitems: MenuitemsType[] = [
   {
-    navlabel: true,
-    subheader: 'CMS',
-  },
-  {
     id: uniqueId(),
     title: 'Dashboard',
     icon: IconLayoutDashboard,
