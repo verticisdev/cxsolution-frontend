@@ -121,9 +121,9 @@ const ProfileBanner = () => {
                   <Typography fontWeight={600} variant="h5">
                     Julia Roberts
                   </Typography>
-                  <Typography color="textSecondary" variant="h6" fontWeight={400}>
+                  {/* <Typography color="textSecondary" variant="h6" fontWeight={400}>
                     Project Manager
-                  </Typography>
+                  </Typography> */}
                 </Box>
               </Box>
             </Box>
