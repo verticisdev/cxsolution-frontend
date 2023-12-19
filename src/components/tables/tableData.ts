@@ -554,7 +554,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_to": "Carol Johnson",
         "send_method": "E-mail",
         "answer": "26/07/2023",
-        "view": false,
+        "view": true,
         "score": 9
     },
     {
@@ -571,8 +571,8 @@ const customerResponseData: CustomerResponseType[] = [
         "send_date": "27/07/2023 17:12",
         "send_to": "Eve Williams",
         "send_method": "Whatsapp",
-        "answer": true,
-        "view": "30/07/2023",
+        "answer": "30/07/2023",
+        "view": true,
         "score": 7
     },
     {
@@ -581,7 +581,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_to": "Frank Davis",
         "send_method": "Whatsapp",
         "answer": false,
-        "view": "01/08/2023",
+        "view": true,
         "score": 5
     },
     {
@@ -590,7 +590,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_to": "Grace Martinez",
         "send_method": "Whatsapp",
         "answer": "29/07/2023",
-        "view": false,
+        "view": true,
         "score": 9
     },
     {
