@@ -9,7 +9,7 @@ const Logo = () => {
   const customizer = useSelector((state: AppState) => state.customizer);
   const LinkStyled = styled(Link)(() => ({
     height: customizer.TopbarHeight,
-    width: customizer.isCollapse ? "40px" : "180px",
+    width: customizer.isCollapse ? "60px" : "180px",
     overflow: "hidden",
     display: "block",
   }));
@@ -21,10 +21,10 @@ const Logo = () => {
           <>
           {customizer.isCollapse ? (
             <Image
-              src="/images/logos/logo.png"
+              src="/images/logos/logo_colapse.png"
               alt="logo"
               height={customizer.TopbarHeight}
-              width={50}
+              width={60}
               priority
             />
           ) : (
@@ -41,10 +41,10 @@ const Logo = () => {
           <>
           {customizer.isCollapse ? (
             <Image
-              src="/images/logos/logo.png"
+              src="/images/logos/logo_colapse.png"
               alt="logo"
               height={customizer.TopbarHeight}
-              width={50}
+              width={60}
               priority
             />
           ) : (
