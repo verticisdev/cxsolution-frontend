@@ -43,7 +43,7 @@ export interface CustomerResponseType {
     id: number;
     send_date: string;
     send_to: string;
-    answer: boolean;
+    answer: boolean | string;
     view: boolean;
     score: number;
     send_method: string;
@@ -535,7 +535,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_date": "23/07/2023 13:58",
         "send_to": "Alice Garcia",
         "send_method": "E-mail",
-        "answer": true,
+        "answer": "02/08/2023",
         "view": true,
         "score": 8
     },
@@ -553,7 +553,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_date": "25/07/2023 15:20",
         "send_to": "Carol Johnson",
         "send_method": "E-mail",
-        "answer": true,
+        "answer": "26/07/2023",
         "view": false,
         "score": 9
     },
@@ -572,7 +572,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_to": "Eve Williams",
         "send_method": "Whatsapp",
         "answer": true,
-        "view": true,
+        "view": "30/07/2023",
         "score": 7
     },
     {
@@ -581,7 +581,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_to": "Frank Davis",
         "send_method": "Whatsapp",
         "answer": false,
-        "view": true,
+        "view": "01/08/2023",
         "score": 5
     },
     {
@@ -589,7 +589,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_date": "29/07/2023 11:18",
         "send_to": "Grace Martinez",
         "send_method": "Whatsapp",
-        "answer": true,
+        "answer": "29/07/2023",
         "view": false,
         "score": 9
     },
@@ -607,7 +607,7 @@ const customerResponseData: CustomerResponseType[] = [
         "send_date": "31/07/2023 16:50",
         "send_to": "Ivy Anderson",
         "send_method": "Whatsapp",
-        "answer": true,
+        "answer": "05/08/2023",
         "view": true,
         "score": 8
     },

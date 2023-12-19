@@ -27,7 +27,7 @@ function CustomerModal(props: { id: number }){
         pb: 3,
     };
     const leftOver = 10 - (rowData?.answer !== undefined ? rowData.answer : 0);
-    console.log(props.id)
+    
     const seriescolumnchart = [leftOver, rowData?.answer ? rowData?.answer : 0];
     const optionscolumnchart: any = {
         chart: {
@@ -82,13 +82,16 @@ function CustomerModal(props: { id: number }){
             </Stack>
             <Grid container spacing={2} mt={3}>
                 <Grid item xs={6}>
-                    <Chart
+                    <Typography sx={{ pt: 6, pb: 10 }} fontSize={70} color={rowData?.answer! > 8 ? '#289335' : (rowData?.answer! > 6 ? '#ffcf58' : '#fa3636')} fontWeight={700} textAlign={"center"}>
+                        {rowData?.answer}
+                    </Typography>
+                    {/* <Chart
                         options={optionscolumnchart}
                         series={seriescolumnchart}
                         type="donut"
                         height={150}
                         width={"100%"}
-                    />
+                    /> */}
                     <Stack direction="row" flexWrap="wrap" justifyContent="start" mt={1}>
                         <Typography variant="h5" >
                             Como podemos melhorar?

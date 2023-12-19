@@ -74,7 +74,7 @@ const YearlyBreakup = () => {
             {/* column */}
             <Grid item xs={7} sm={7}>
               <Typography variant="h3" fontWeight="700">
-                Ultimas observações
+                Último feedback
               </Typography>
               <Stack direction="row" spacing={1} mt={2} alignItems="center">
                 <Avatar sx={{ bgcolor: successlight, width: 27, height: 27 }}>

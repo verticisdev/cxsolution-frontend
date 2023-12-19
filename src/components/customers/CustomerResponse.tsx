@@ -226,7 +226,7 @@ const CustomerResponse = () => {
                                             </TableCell>
                                             <TableCell>
                                                 <Typography color="textSecondary" variant="subtitle2" fontWeight="400">
-                                                    {row.answer ? "Sim" : "Não"}
+                                                    {row.answer ? row.answer : "Não"}
                                                 </Typography>
                                             </TableCell>
                                             <TableCell>
